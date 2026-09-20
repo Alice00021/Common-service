@@ -33,6 +33,9 @@ from .exceptions.base import (
 from .middleware.request_id import RequestIDMiddleware
 from .middleware.cors import setup_cors
 
+# Cache
+from .cache import get_redis, close_redis, RedisCache, init_redis
+
 __all__ = [
     # Config
     "BaseSettings",
@@ -63,4 +66,11 @@ __all__ = [
     # Middleware
     "RequestIDMiddleware",
     "setup_cors",
+
+    # Cache
+    "get_redis",
+    "close_redis",
+    "RedisCache",
+    "init_redis",
+
 ]
