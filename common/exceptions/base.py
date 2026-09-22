@@ -30,23 +30,22 @@ class AppException(Exception):
 
 
 class NotFoundError(AppException):
-    """404"""
-
-    def __init__(self, entity: str, identifier: Any = None):
-        msg = f"{entity} not found"
-        if identifier is not None:
+    def __init__(
+            self,
+            entity: str,
+            identifier: Any = None,
+            details: Optional[Dict[str, Any]] = None,
+            message: Optional[str] = None,
+    ):
+        msg = message or f"{entity} not found"
+        if identifier is not None and not message:
             msg = f"{entity} with id '{identifier}' not found"
-        super().__init__(msg, status_code=404, error_code="NOT_FOUND")
-
-
-class ValidationError(AppException):
-    """400"""
-
-    def __init__(self, message: str, errors: Optional[List[str]] = None):
-        details = {}
-        if errors:
-            details["errors"] = errors
-        super().__init__(message, status_code=400, details=details, error_code="VALIDATION_ERROR")
+        super().__init__(
+            message=msg,
+            status_code=404,
+            details=details,
+            error_code="NOT_FOUND",
+        )
 
 
 class ConflictError(AppException):
