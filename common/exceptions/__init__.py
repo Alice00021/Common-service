@@ -6,6 +6,8 @@ from .base import (
     UnauthorizedError,
     ForbiddenError,
     ServiceError,
+    BadRequestError,
+    RateLimitError,
 )
 
 __all__ = [
@@ -16,4 +18,6 @@ __all__ = [
     "UnauthorizedError",
     "ForbiddenError",
     "ServiceError",
+    "BadRequestError",
+    "RateLimitError",
 ]
