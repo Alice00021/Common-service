@@ -1,5 +1,6 @@
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
+import uuid
 from typing import Optional, Dict, Any
 from pydantic import BaseModel, Field
 import logging
@@ -14,6 +15,7 @@ class TokenPayload(BaseModel):
     exp: datetime = Field(..., description="Время истечения")
     type: str = Field(..., description="Тип токена: access или refresh")
     iat: Optional[datetime] = Field(None, description="Время создания")
+    jti: Optional[str] = Field(None, description="Уникальный ID токена (для отзыва)")
 
 
 class JWTService:
@@ -40,6 +42,8 @@ class JWTService:
             "iat": now,
             "type": token_type
         })
+        # jti нужен, чтобы можно было отозвать конкретный токен (см. TokenBlacklist)
+        to_encode.setdefault("jti", uuid.uuid4().hex)
 
         return jwt.encode(to_encode, self.secret_key, algorithm=self.algorithm)
 
