@@ -1,8 +1,12 @@
 from passlib.context import CryptContext
+import logging
 import re
 import secrets
 import string
 from typing import Optional, Tuple
+
+# passlib 1.7.4 с bcrypt>=4 пишет в лог безвредное "no attribute '__about__'" (хеширование работает)
+logging.getLogger("passlib").setLevel(logging.ERROR)
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
