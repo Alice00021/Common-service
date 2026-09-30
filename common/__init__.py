@@ -17,6 +17,7 @@ from .database.base import Base
 # Security
 from .security.jwt import JWTService, TokenPayload
 from .security.password import PasswordService
+from .security.dependencies import AuthenticatedUser, create_auth_dependency
 
 # Exceptions
 from .exceptions.base import (
@@ -53,6 +54,8 @@ __all__ = [
     "JWTService",
     "TokenPayload",
     "PasswordService",
+    "AuthenticatedUser",
+    "create_auth_dependency",
 
     # Exceptions
     "AppException",
